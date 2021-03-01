@@ -1,0 +1,17 @@
+name: "Rifqy Rosyidah Ilmi"
+navbar:
+  title: "R for Data Science"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Data Visualisation"
+      href: datavisualisation.html
+    - text: "Data Transformation"
+      href: datatransformation.html
+    - text: "Relational Data"
+      href: relationaldata.html
+    - text: "Aljabar Linear"
+      href: alin.html
+    - text: "About"
+      href: about.html
+

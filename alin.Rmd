@@ -1,0 +1,105 @@
+---
+title: "Aljabar Linear"
+author: "@ Rifqy Rosyidah Ilmi @ Prof Dr Suhartono M.Kom @ Magister Informatika @ UIN Maulana Malik Ibrahim @ UIN Malang"
+date: "20/2/2021"
+output: html_document
+---
+Aljabar Linear untuk Sains Data
+
+Membuat Vektor Data :
+
+```{r}
+rep(2, 3)
+```
+```{r}
+rep(7, 4)
+```
+Membuat vektor bilangan genap dan ganjil 
+```{r}
+seq(2, 6, by = 2)
+```
+```{r}
+seq(1, 5, by = 2)
+
+```
+Menampilkan data vektor di atas menggunakan 'c'  
+
+```{r}
+c(2, 2, 2)
+```
+```{r}
+c(7,7,7,7)
+```
+```{r}
+c(2,4,6)
+```
+
+```{r}
+c(1,3,5)
+```
+Aljabar Vektor 
+```{r}
+x=c(1,2,3)
+y=seq(2, 6, by = 2)
+z=rep(2, 3)
+
+#Penjumlahan x dan y dan cetak
+print(x + y)
+
+#Perkalian z x 2 
+print(2*z)
+
+#perkalian x dan y
+print(x*y)
+
+#penjumlahan x dan z
+print(x + z)
+```
+Membuat Matriks di R
+```{r}
+#membuat matriks 3 kolom dan 2 baris yang berisi bilangan 1 
+matrix(1, nrow = 2, ncol = 3)
+```
+```{r}
+print(matrix(2, nrow = 3, ncol = 2))
+```
+
+```{r}
+# Membuat Matriks, mengubah fungsinya dengan byrow.
+B <- matrix(c(1, 2, 3, 2), nrow = 2, ncol = 2, byrow = FALSE)
+A <- matrix(c(1, 2, 3, 2), nrow = 2, ncol = 2, byrow = TRUE)
+
+# Menjumlahkan A dengan matriks yang telah dibuat sebelumnya
+A + B
+```
+Operasi Vector - Matriks
+```{r}
+A = matrix(c(1, 2, 3, -1, 0, 3), nrow = 2, ncol = 3, byrow = TRUE)
+b = c(-2, 2, 2)
+
+```
+```{r}
+# Kalikan A dan b
+A%*%b
+```
+Pentingnya Urutan dalam Perkalian Matriks 
+```{r}
+A = matrix(c(1, 3, 2, -1), nrow = 2, ncol = 2)
+B = matrix(c(-1, 1, 2, -3), nrow = 2, ncol = 2)
+b = c(-2, 2)
+
+# Kalikan A dan B
+A%*%B
+# Kalikan hasil A dan B dengan b
+A%*%B%*%b
+```
+```{r}
+# Multiply A on the right of B, and then by the vector b
+B%*%A%*%b
+```
+
+
+Sumber : https://rpubs.com/michaelmallari/linear-algebra-for-data-science
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```

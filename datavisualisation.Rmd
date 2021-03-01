@@ -1,0 +1,154 @@
+---
+title: "Data Visualisation"
+author: "@ Rifqy Rosyidah Ilmi @ Prof Dr Suhartono M.Kom @ Magister Informatika @ UIN Maulana Malik Ibrahim @ UIN Malang"
+date: "14/2/2021"
+output: html_document
+---
+Visualisasi Data grafik menggunakan ggplot. 
+
+Untuk Menggunakan fitur ggplot maka diperlukan paket library tidyvers sebagaimana dibawah ini 
+
+```{r}
+library(tidyverse)
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+#> ✔ ggplot2 3.3.2     ✔ purrr   0.3.4
+#> ✔ tibble  3.0.3     ✔ dplyr   1.0.2
+#> ✔ tidyr   1.1.2     ✔ stringr 1.4.0
+#> ✔ readr   1.4.0     ✔ forcats 0.5.0
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+```
+A. Langkah pertama 
+
+A.1. Mengggunakan data frame mpg yaitu data 38 tipe mobil oleh US Environmental  Agency 
+
+```{r}
+mpg
+#> # A tibble: 234 x 11
+#>   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+#>   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
+#> 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
+#> 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
+#> 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
+#> 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
+#> 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
+#> 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…
+#> # … with 228 more rows
+```
+Data tersebut berisi :
+1. displ, yaitu ukuran mesin mobil dalam satuan liter.
+2. hwy, yaitu efisiensi konsumsi bahan bakar dalam mil per galon (mpg).
+
+A.2. Untuk membuat plot data mpg dengan menampilkan x= displ dan y= hwy maka  :
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+Plot tersebut menunjukkan hubungan negatif antara ukuran mesin (displ) dan efisiensi bahan bakar (hwy). Dengan kata lain, mobil bermesin besar menggunakan lebih banyak bahan bakar. ggplot2 mencari variabel yang dipetakan dalam argumen data, dalam hal ini, mpg
+
+B.Pemetaan  
+Agar data dapat disajikan dengan lebih baik dan  informatif maka dapat ditambah class (jenis mobil) dengan berbagai warna dengan cara sebagai berikut : 
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+Pemetaan  di atas hanya menampilkan data berdasarkan jenis mobil dengan berbagai warna. Data dapat dipetakan sesuai ukuran dengan cara sebagai berikut :
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+#> Warning: Using size for a discrete variable is not advised.
+```
+Terdapat peringatan jika menggunakan pemetaan berdasarkan ukuran karena memetakan variabel tak berurutan (kelas) ke estetika yang teratur (ukuran) bukanlah ide yang baik.
+
+Pemetaan yang lebih baik :
+```{r}
+# Left
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+
+# Right
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+Pemetaan dengan warna yang ditentukan :
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+C. Aspek 
+Menampilkan plot sesuai dengan subset :
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+D. Objek Geometri
+Menampilkan plot dengan obejk geomwtri :
+```{r}
+# left
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+
+# right
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+```{r}
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
+```
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+              
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
+    
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE
+  )
+```
+
+Untuk menampilkan beberapa geom dalam plot yang sama, tambahkan beberapa fungsi geom ke ggplot ()
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+Menampilkan plot dengan warna :
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
+```
+
+Sumber : https://r4ds.had.co.nz/data-visualisation.html
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
